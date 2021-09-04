@@ -4,25 +4,25 @@
             <span>
                 <i class="iconfont icon-u"></i>
             </span>
-            <span>首页</span>
+            <span>{{$t('footer_home')}}</span>
         </span>
         <span class="guide-item" :class="{on: $route.path === '/search'}" @click="goto('/search')">
             <span>
                 <i class="iconfont icon-search1"></i>
             </span>
-            <span>搜索</span>
+            <span>{{$t('footer_search')}}</span>
         </span>
         <span class="guide-item" :class="{on: $route.path === '/order'}" @click="goto('/order')">
             <span>
                 <i class="iconfont icon-icon-dingdan"></i>
             </span>
-            <span>订单</span>
+            <span>{{$t('footer_order')}}</span>
         </span>
         <span class="guide-item" :class="{on: $route.path === '/profile'}" @click="goto('/profile')">
             <span>
                 <i class="iconfont icon-user"></i>
             </span>
-            <span>个人</span>
+            <span>{{$t('footer_own')}}</span>
         </span>
     </div>
 </template>
@@ -33,8 +33,19 @@ export default {
 
     methods: {
         goto (path) {
-            // 编程式路由跳转
-            this.$router.replace(path)
+            //方案1：如果点击当前项，没有任何效果
+            // if(path !== this.$route.path) {
+            //     // 编程式路由跳转
+            //     this.$router.replace(path)
+            // }
+
+            // 方案2：如果点击当前项，刷新页面
+            if(path !== this.$route.path) {
+                // 编程式路由跳转
+                this.$router.replace(path)
+            }else {
+                window.location = path // 发送一般的http请求 ==> 整个页面会刷新显示
+            }
         }
     }
 };
@@ -50,6 +61,8 @@ export default {
     bottom 0
     height 50px
     width 100%
+    background-color #fff
+    align-items center
     .guide-item
         display flex
         flex-direction column
